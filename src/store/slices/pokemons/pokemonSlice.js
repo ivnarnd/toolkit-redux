@@ -12,7 +12,7 @@ reducers: {
   },
   setPokemons: (state, action ) => {
     state.isLoading = false;
-    console.log(action);
+    console.log(action.payload);
  }
 }});
 export const { startLoadingPokemons,setPokemons } = pokemonSlice.actions;

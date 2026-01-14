@@ -1,11 +1,10 @@
 import { setPokemons, startLoadingPokemons } from "./pokemonSlice";
+import { pokemonApi } from "../../../api/pokemonApi";
 export const getPokemons = (page = 0)=>{
     return async (dispatch,getState)=>{
         dispatch(startLoadingPokemons());
         // Simulate API call
-        setTimeout(() => {
-            const pokemons = Array.from({ length: 10 }, (_, i) => `Pokemon ${page * 10 + i + 1}`);
-            dispatch(setPokemons(pokemons));
-        }, 1000);
+        const {data} = await pokemonApi.get(`/pokemon?offset=${page*10}&limit=10`);
+        dispatch(setPokemons({pokemons:data.results, page: page + 1}));
     }
 }
